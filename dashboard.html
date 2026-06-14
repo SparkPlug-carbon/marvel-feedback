@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Fitness HQ - Analytics</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-glow"></div>
+
+    <div class="dashboard-container">
+        <header>
+            <h1>MARVEL FITNESS <span>HQ</span></h1>
+            <p class="subtitle">Live Member Feedback Analytics</p>
+            <div class="refresh-status">
+                Last updated: <span id="last-updated">Loading...</span>
+                <button class="refresh-btn" id="refresh-btn" title="Refresh Now">⟳</button>
+            </div>
+        </header>
+
+        <!-- KPI Cards -->
+        <div class="kpi-grid">
+            <div class="kpi-card" data-category="workout">
+                <div class="kpi-icon">🏋️</div>
+                <h3>Workout</h3>
+                <div class="kpi-value" id="kpi-workout">-</div>
+                <div class="kpi-count" id="kpi-workout-count">0 reviews</div>
+                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-workout"></div></div>
+            </div>
+            <div class="kpi-card" data-category="equipment">
+                <div class="kpi-icon">⚙️</div>
+                <h3>Equipment</h3>
+                <div class="kpi-value" id="kpi-equipment">-</div>
+                <div class="kpi-count" id="kpi-equipment-count">0 reviews</div>
+                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-equipment"></div></div>
+            </div>
+            <div class="kpi-card" data-category="cleanliness">
+                <div class="kpi-icon">✨</div>
+                <h3>Cleanliness</h3>
+                <div class="kpi-value" id="kpi-clean">-</div>
+                <div class="kpi-count" id="kpi-clean-count">0 reviews</div>
+                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-clean"></div></div>
+            </div>
+            <div class="kpi-card" data-category="trainers">
+                <div class="kpi-icon">💪</div>
+                <h3>Trainers</h3>
+                <div class="kpi-value" id="kpi-trainers">-</div>
+                <div class="kpi-count" id="kpi-trainers-count">0 reviews</div>
+                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-trainers"></div></div>
+            </div>
+            <div class="kpi-card" data-category="atmosphere">
+                <div class="kpi-icon">🎵</div>
+                <h3>Atmosphere</h3>
+                <div class="kpi-value" id="kpi-atmosphere">-</div>
+                <div class="kpi-count" id="kpi-atmosphere-count">0 reviews</div>
+                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-atmosphere"></div></div>
+            </div>
+        </div>
+
+        <!-- Recent Submissions List -->
+        <div class="submissions-container">
+            <h2>Recent Submissions</h2>
+            <div id="submissions-list" class="submissions-list">
+                <!-- Submission cards will be generated here -->
+            </div>
+            <div id="empty-state" class="empty-state hidden">
+                <p>No feedback submissions yet.</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>
