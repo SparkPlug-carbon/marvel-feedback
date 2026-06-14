@@ -10,15 +10,39 @@
 </head>
 
 <body>
+    <!-- PIN AUTHENTICATION OVERLAY -->
+    <div id="auth-overlay">
+        <div class="auth-box">
+            <h2 class="auth-title">ACCESS SECURED</h2>
+            <p class="auth-desc">Enter authorization code to view classified data.</p>
+            <div class="pin-input-wrapper">
+                <input type="password" id="pin-input" placeholder="Enter PIN" autocomplete="off">
+                <button type="button" id="toggle-pin-btn" title="Toggle Password Visibility">👁️</button>
+            </div>
+            <button id="auth-btn">VERIFY ACCESS</button>
+            <p id="auth-error" class="hidden">Incorrect PIN. Access Denied.</p>
+        </div>
+    </div>
+
+    <canvas id="particle-canvas"></canvas>
     <div class="background-glow"></div>
 
     <div class="dashboard-container">
         <header>
-            <h1>MARVEL FITNESS <span>HQ</span></h1>
-            <p class="subtitle">Live Member Feedback Analytics</p>
-            <div class="refresh-status">
-                Last updated: <span id="last-updated">Loading...</span>
-                <button class="refresh-btn" id="refresh-btn" title="Refresh Now">⟳</button>
+            <div class="header-left">
+                <h1>MARVEL FITNESS HQ DASHBOARD</h1>
+                <p id="last-updated">Last update: Never</p>
+            </div>
+            <div class="header-controls">
+                <select id="date-filter" class="date-filter">
+                    <option value="all">All Time</option>
+                    <option value="today">Today</option>
+                    <option value="7days">Last 7 Days</option>
+                    <option value="30days">Last 30 Days</option>
+                </select>
+                <button id="refresh-btn" class="refresh-btn">
+                    🔄
+                </button>
             </div>
         </header>
 
@@ -29,35 +53,45 @@
                 <h3>Workout</h3>
                 <div class="kpi-value" id="kpi-workout">-</div>
                 <div class="kpi-count" id="kpi-workout-count">0 reviews</div>
-                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-workout"></div></div>
+                <div class="kpi-bar">
+                    <div class="kpi-bar-fill" id="bar-workout"></div>
+                </div>
             </div>
             <div class="kpi-card" data-category="equipment">
                 <div class="kpi-icon">⚙️</div>
                 <h3>Equipment</h3>
                 <div class="kpi-value" id="kpi-equipment">-</div>
                 <div class="kpi-count" id="kpi-equipment-count">0 reviews</div>
-                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-equipment"></div></div>
+                <div class="kpi-bar">
+                    <div class="kpi-bar-fill" id="bar-equipment"></div>
+                </div>
             </div>
             <div class="kpi-card" data-category="cleanliness">
                 <div class="kpi-icon">✨</div>
                 <h3>Cleanliness</h3>
                 <div class="kpi-value" id="kpi-clean">-</div>
                 <div class="kpi-count" id="kpi-clean-count">0 reviews</div>
-                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-clean"></div></div>
+                <div class="kpi-bar">
+                    <div class="kpi-bar-fill" id="bar-clean"></div>
+                </div>
             </div>
             <div class="kpi-card" data-category="trainers">
                 <div class="kpi-icon">💪</div>
                 <h3>Trainers</h3>
                 <div class="kpi-value" id="kpi-trainers">-</div>
                 <div class="kpi-count" id="kpi-trainers-count">0 reviews</div>
-                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-trainers"></div></div>
+                <div class="kpi-bar">
+                    <div class="kpi-bar-fill" id="bar-trainers"></div>
+                </div>
             </div>
             <div class="kpi-card" data-category="atmosphere">
                 <div class="kpi-icon">🎵</div>
                 <h3>Atmosphere</h3>
                 <div class="kpi-value" id="kpi-atmosphere">-</div>
                 <div class="kpi-count" id="kpi-atmosphere-count">0 reviews</div>
-                <div class="kpi-bar"><div class="kpi-bar-fill" id="bar-atmosphere"></div></div>
+                <div class="kpi-bar">
+                    <div class="kpi-bar-fill" id="bar-atmosphere"></div>
+                </div>
             </div>
         </div>
 
@@ -74,6 +108,7 @@
     </div>
 
     <script src="dashboard.js"></script>
+    <script src="particles.js"></script>
 </body>
 
 </html>

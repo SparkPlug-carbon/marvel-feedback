@@ -4,20 +4,69 @@ const API_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsIn
 
 document.addEventListener('DOMContentLoaded', () => {
     const refreshBtn = document.getElementById('refresh-btn');
+    const dateFilter = document.getElementById('date-filter');
+    const authOverlay = document.getElementById('auth-overlay');
+    const pinInput = document.getElementById('pin-input');
+    const authBtn = document.getElementById('auth-btn');
+    const authError = document.getElementById('auth-error');
 
-    // Manual refresh button
-    refreshBtn.addEventListener('click', () => {
-        refreshBtn.classList.add('spinning');
+    const REQUIRED_PIN = 'Sanjith@Marvel';
+
+    // Check if already authenticated in this session
+    if (sessionStorage.getItem('marvel_admin_auth') === 'true') {
+        authOverlay.classList.add('hidden');
+        initializeApp();
+    } else {
+        // Wait for PIN
+        authBtn.addEventListener('click', verifyPin);
+        pinInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') verifyPin();
+        });
+
+        // Toggle Password Visibility
+        const toggleBtn = document.getElementById('toggle-pin-btn');
+        toggleBtn.addEventListener('click', () => {
+            if (pinInput.type === 'password') {
+                pinInput.type = 'text';
+                toggleBtn.textContent = '🙈';
+            } else {
+                pinInput.type = 'password';
+                toggleBtn.textContent = '👁️';
+            }
+        });
+    }
+
+    function verifyPin() {
+        if (pinInput.value.trim() === REQUIRED_PIN) {
+            sessionStorage.setItem('marvel_admin_auth', 'true');
+            authOverlay.classList.add('hidden');
+            initializeApp();
+        } else {
+            authError.classList.remove('hidden');
+            pinInput.value = '';
+        }
+    }
+
+    function initializeApp() {
+        // Manual refresh button
+        refreshBtn.addEventListener('click', () => {
+            refreshBtn.classList.add('spinning');
+            fetchDashboardData();
+            setTimeout(() => refreshBtn.classList.remove('spinning'), 800);
+        });
+
+        // Date Filter
+        dateFilter.addEventListener('change', applyDateFilter);
+
+        // Initial load
         fetchDashboardData();
-        setTimeout(() => refreshBtn.classList.remove('spinning'), 800);
-    });
 
-    // Initial load
-    fetchDashboardData();
-
-    // Auto-refresh every 60 seconds
-    setInterval(fetchDashboardData, 60000);
+        // Auto-refresh every 60 seconds
+        setInterval(fetchDashboardData, 60000);
+    }
 });
+
+let allFeedbackData = [];
 
 async function fetchDashboardData() {
     try {
@@ -37,13 +86,49 @@ async function fetchDashboardData() {
             return;
         }
 
-        const data = await response.json();
-        console.log('Fetched data:', data);
-        updateDashboard(data);
+        allFeedbackData = await response.json();
+        console.log('Fetched data:', allFeedbackData);
+        
+        // Format dates correctly just in case
+        allFeedbackData.forEach(item => {
+            item.parsedDate = new Date(item.created_at);
+        });
+        
+        document.getElementById('last-updated').textContent = `Last update: ${new Date().toLocaleTimeString()}`;
+        
+        applyDateFilter();
     } catch (error) {
         console.error("Data pull failed:", error);
         document.getElementById('last-updated').textContent = `Error: ${error.message}`;
     }
+}
+
+function applyDateFilter() {
+    const filterValue = document.getElementById('date-filter').value;
+    const now = new Date();
+    let filteredData = [];
+
+    if (filterValue === 'all') {
+        filteredData = allFeedbackData;
+    } else {
+        filteredData = allFeedbackData.filter(item => {
+            if (!item.parsedDate) return false;
+            
+            const diffTime = Math.abs(now - item.parsedDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+            
+            if (filterValue === 'today') {
+                return item.parsedDate.toDateString() === now.toDateString();
+            } else if (filterValue === '7days') {
+                return diffDays <= 7;
+            } else if (filterValue === '30days') {
+                return diffDays <= 30;
+            }
+            return true;
+        });
+    }
+
+    updateDashboard(filteredData);
 }
 
 function updateDashboard(data) {
@@ -61,11 +146,11 @@ function updateDashboard(data) {
 
     // Category configs: [db_rating_field, kpi_el_id, count_el_id, bar_el_id]
     const categories = [
-        { rating: 'workout_rating',     comment: 'workout_comment',     kpi: 'kpi-workout',     count: 'kpi-workout-count',     bar: 'bar-workout' },
-        { rating: 'equipment_rating',   comment: 'equipment_comment',   kpi: 'kpi-equipment',   count: 'kpi-equipment-count',   bar: 'bar-equipment' },
-        { rating: 'cleanliness_rating', comment: 'cleanliness_comment', kpi: 'kpi-clean',       count: 'kpi-clean-count',       bar: 'bar-clean' },
-        { rating: 'trainers_rating',    comment: 'trainers_comment',    kpi: 'kpi-trainers',    count: 'kpi-trainers-count',    bar: 'bar-trainers' },
-        { rating: 'atmosphere_rating',  comment: 'atmosphere_comment',  kpi: 'kpi-atmosphere',  count: 'kpi-atmosphere-count',  bar: 'bar-atmosphere' }
+        { rating: 'workout_rating', comment: 'workout_comment', kpi: 'kpi-workout', count: 'kpi-workout-count', bar: 'bar-workout' },
+        { rating: 'equipment_rating', comment: 'equipment_comment', kpi: 'kpi-equipment', count: 'kpi-equipment-count', bar: 'bar-equipment' },
+        { rating: 'cleanliness_rating', comment: 'cleanliness_comment', kpi: 'kpi-clean', count: 'kpi-clean-count', bar: 'bar-clean' },
+        { rating: 'trainers_rating', comment: 'trainers_comment', kpi: 'kpi-trainers', count: 'kpi-trainers-count', bar: 'bar-trainers' },
+        { rating: 'atmosphere_rating', comment: 'atmosphere_comment', kpi: 'kpi-atmosphere', count: 'kpi-atmosphere-count', bar: 'bar-atmosphere' }
     ];
 
     // 1. Calculate and display KPIs
@@ -110,11 +195,11 @@ function updateDashboard(data) {
 
         // Calculate avg rating for this submission
         const ratings = [row.workout_rating, row.equipment_rating, row.cleanliness_rating, row.trainers_rating, row.atmosphere_rating].filter(r => r > 0);
-        const avgRating = ratings.length ? (ratings.reduce((a,b)=>a+b,0)/ratings.length).toFixed(1) : '-';
+        const avgRating = ratings.length ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(1) : '-';
 
         const card = document.createElement('div');
         card.className = 'submission-card';
-        
+
         let gridHtml = '';
         const items = [
             { id: 'workout', name: 'Workout', icon: '🏋️', rating: row.workout_rating, comment: row.workout_comment },

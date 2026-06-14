@@ -51,6 +51,16 @@ body {
     }
 }
 
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+}
+
 /* ========================================
    LAYOUT
    ======================================== */
@@ -62,36 +72,61 @@ body {
 }
 
 header {
-    margin-bottom: 35px;
+    margin-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid var(--glass-border);
     padding-bottom: 20px;
-    border-bottom: 1px solid var(--glass-border);
-    animation: fadeInDown 0.6s ease-out;
 }
 
 header h1 {
-    font-weight: 800;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    color: var(--text-main);
     letter-spacing: 2px;
-    text-transform: uppercase;
+    margin-bottom: 5px;
 }
 
 header h1 span {
     color: var(--marvel-red);
 }
 
-header .subtitle {
+.subtitle {
     color: var(--text-muted);
-    font-size: 0.95rem;
-    margin-top: 4px;
+    font-size: 1rem;
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.date-filter {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--glass-border);
+    color: var(--text-main);
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.date-filter:focus, .date-filter:hover {
+    border-color: var(--marvel-red);
+}
+
+.date-filter option {
+    background: var(--bg-color);
+    color: var(--text-main);
 }
 
 .refresh-status {
     font-size: 0.85rem;
     color: var(--text-muted);
-    margin-top: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
 }
 
 .refresh-btn {
@@ -404,4 +439,121 @@ header .subtitle {
         font-size: 1.4rem;
         letter-spacing: 1px;
     }
+}
+
+/* ========================================
+   AUTH OVERLAY
+   ======================================== */
+#auth-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(11, 12, 16, 0.95);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    transition: opacity 0.5s ease;
+}
+
+#auth-overlay.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.auth-box {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 40px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.auth-title {
+    color: var(--marvel-red);
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.auth-desc {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.pin-input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#pin-input {
+    width: 100%;
+    padding: 12px 40px 12px 12px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: var(--text-main);
+    font-family: inherit;
+    font-size: 1.2rem;
+    text-align: center;
+    letter-spacing: 5px;
+}
+
+#pin-input:focus {
+    outline: none;
+    border-color: var(--marvel-red);
+    box-shadow: 0 0 10px var(--marvel-red-glow);
+}
+
+#toggle-pin-btn {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: color 0.3s ease;
+}
+
+#toggle-pin-btn:hover {
+    color: #fff;
+}
+
+#auth-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--marvel-red);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+#auth-btn:hover {
+    background: #ff2a31;
+}
+
+#auth-error {
+    color: var(--marvel-red);
+    font-size: 0.85rem;
+    margin-top: 15px;
+}
+
+#auth-error.hidden {
+    display: none;
 }

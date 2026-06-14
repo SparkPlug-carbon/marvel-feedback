@@ -1,6 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ========================================
+    // SPAM PREVENTION (12-Hour Block)
+    // ========================================
+    const lastSubmitTime = localStorage.getItem('marvel_feedback_timestamp');
+    if (lastSubmitTime) {
+        const timePassed = Date.now() - parseInt(lastSubmitTime);
+        const twelveHoursInMs = 12 * 60 * 60 * 1000;
+        
+        if (timePassed < twelveHoursInMs) {
+            // Already submitted recently, show Arc Reactor immediately
+            document.querySelector('.form-wrapper').classList.add('hidden');
+            document.querySelector('.lang-selector').classList.add('hidden');
+            document.getElementById('thank-you-screen').classList.remove('hidden');
+            return; // Stop initializing the rest of the form
+        }
+    }
+
+    // ========================================
     // TRANSLATIONS
     // ========================================
     const translations = {
@@ -310,14 +327,25 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             if (response.ok) {
+                // Save timestamp for spam prevention
+                localStorage.setItem('marvel_feedback_timestamp', Date.now());
+
                 document.querySelectorAll('.marvel-anim-zone').forEach(z => z.classList.remove('peek'));
-                form.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                form.style.opacity = '0';
-                form.style.transform = 'scale(0.95)';
+                
+                const formWrapper = document.querySelector('.form-wrapper');
+                const langSelector = document.querySelector('.lang-selector');
+                const thankYouScreen = document.getElementById('thank-you-screen');
+
+                formWrapper.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                langSelector.style.transition = 'opacity 0.5s ease';
+                formWrapper.style.opacity = '0';
+                langSelector.style.opacity = '0';
+                formWrapper.style.transform = 'scale(0.95)';
 
                 setTimeout(() => {
-                    form.classList.add('hidden');
-                    successMsg.classList.remove('hidden');
+                    formWrapper.classList.add('hidden');
+                    langSelector.classList.add('hidden');
+                    thankYouScreen.classList.remove('hidden');
                 }, 500);
             } else {
                 throw new Error('Database insertion failed');

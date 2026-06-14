@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <canvas id="particle-canvas"></canvas>
     <div class="background-glow"></div>
 
     <div class="container">
@@ -188,14 +189,23 @@
                 </button>
             </form>
 
-            <div id="success-message" class="hidden">
-                <div class="success-icon">🎉</div>
-                <h2 data-i18n="thanks_title">Thank You, Hero!</h2>
-                <p data-i18n="thanks_msg">Your feedback has been securely transmitted to HQ.</p>
+        </div> <!-- End of form-wrapper -->
+
+        <!-- THANK YOU STATE -->
+        <div id="thank-you-screen" class="hidden">
+            <div class="arc-reactor">
+                <div class="core-inner"></div>
+                <div class="core-outer"></div>
+                <div class="ring-1"></div>
+                <div class="ring-2"></div>
+                <div class="ring-3"></div>
             </div>
+            <h2 class="thank-you-title" data-i18n="thank_you_title">FEEDBACK ASSEMBLED</h2>
+            <p class="thank-you-text" data-i18n="thank_you_text">Thank you for helping us build a stronger center.</p>
         </div>
     </div>
     <script src="script.js"></script>
+    <script src="particles.js"></script>
 </body>
 
 </html>
