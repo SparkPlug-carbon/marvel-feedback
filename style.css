@@ -72,6 +72,13 @@ header {
     animation: fadeInDown 0.8s ease-out;
 }
 
+.logo-img {
+    max-width: 150px; /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 10px;
+    filter: drop-shadow(0 0 10px var(--marvel-red-glow));
+}
+
 .marvel-title {
     font-weight: 800;
     font-size: 2.5rem;
