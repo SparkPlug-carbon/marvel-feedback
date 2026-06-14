@@ -1,0 +1,590 @@
+:root {
+    --bg-dark: #0b0c10;
+    --card-bg: rgba(31, 33, 40, 0.6);
+    --marvel-red: #ed1d24;
+    --marvel-red-glow: rgba(237, 29, 36, 0.5);
+    --text-main: #f0f0f0;
+    --text-muted: #a0a0a0;
+    --glass-border: rgba(255, 255, 255, 0.08);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Outfit', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    padding: 20px 20px 60px;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ========================================
+   BACKGROUND
+   ======================================== */
+.background-glow {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60vw;
+    height: 60vh;
+    background: radial-gradient(circle, var(--marvel-red-glow) 0%, transparent 70%);
+    filter: blur(100px);
+    z-index: 0;
+    animation: pulseGlow 6s infinite alternate;
+    pointer-events: none;
+}
+
+@keyframes pulseGlow {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1.2);
+        opacity: 0.6;
+    }
+}
+
+/* ========================================
+   LAYOUT
+   ======================================== */
+.container {
+    width: 100%;
+    max-width: 450px;
+    z-index: 1;
+    position: relative;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 20px;
+    animation: fadeInDown 0.8s ease-out;
+}
+
+.marvel-title {
+    font-weight: 800;
+    font-size: 2.5rem;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.marvel-title span {
+    color: var(--marvel-red);
+    font-size: 1.5rem;
+    letter-spacing: 5px;
+    display: block;
+}
+
+header p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* ========================================
+   LANGUAGE SELECTOR
+   ======================================== */
+.lang-selector {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 18px;
+    animation: fadeIn 0.8s ease-out;
+}
+
+.lang-btn {
+    padding: 8px 20px;
+    border: 2px solid var(--glass-border);
+    background: rgba(0, 0, 0, 0.4);
+    color: var(--text-muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Outfit', sans-serif;
+}
+
+.lang-btn.active {
+    border-color: var(--marvel-red);
+    color: #fff;
+    background: rgba(237, 29, 36, 0.15);
+    box-shadow: 0 0 12px rgba(237, 29, 36, 0.3);
+}
+
+.lang-btn:active {
+    transform: scale(0.95);
+}
+
+/* ========================================
+   GLASSMORPHISM CARD
+   ======================================== */
+.form-wrapper {
+    background: var(--card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 20px 18px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* ========================================
+   ACCORDION SECTIONS
+   ======================================== */
+.feedback-section {
+    margin-bottom: 10px;
+    border: 1px solid var(--glass-border);
+    border-radius: 14px;
+    overflow: visible;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feedback-section.active {
+    border-color: rgba(237, 29, 36, 0.3);
+    box-shadow: 0 0 15px rgba(237, 29, 36, 0.1);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 14px;
+    transition: background 0.3s ease;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.section-header:active {
+    background: rgba(237, 29, 36, 0.15);
+}
+
+.section-icon {
+    font-size: 1.2rem;
+}
+
+.section-title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 0.88rem;
+    letter-spacing: 0.3px;
+}
+
+.section-chevron {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    transition: transform 0.3s ease;
+}
+
+.feedback-section.active .section-chevron {
+    transform: rotate(180deg);
+    color: var(--marvel-red);
+}
+
+.section-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease, overflow 0s 0.4s;
+    padding: 0 16px;
+}
+
+.feedback-section.active .section-body {
+    max-height: 500px;
+    padding: 14px 16px 18px;
+    overflow: visible;
+    transition: max-height 0.4s ease, padding 0.4s ease, overflow 0s 0s;
+}
+
+/* ========================================
+   STAR RATING
+   ======================================== */
+.rating-stars {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+
+.star {
+    font-size: 2rem;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s, transform 0.2s, text-shadow 0.2s;
+}
+
+.star:hover,
+.star.active {
+    color: var(--marvel-red);
+    text-shadow: 0 0 15px var(--marvel-red-glow);
+    transform: scale(1.2);
+}
+
+/* Mood label under stars */
+.mood-label {
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    min-height: 1.2em;
+    transition: all 0.3s ease;
+}
+
+/* ========================================
+   TEXTAREA
+   ======================================== */
+.textarea-wrapper {
+    position: relative;
+    overflow: visible;
+}
+
+.feedback-textarea {
+    width: 100%;
+    background: #11131a;
+    border: 1px solid var(--glass-border);
+    color: #fff;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    outline: none;
+    resize: none;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 3;
+    font-family: 'Outfit', sans-serif;
+}
+
+.feedback-textarea:focus {
+    border-color: var(--marvel-red);
+    box-shadow: 0 0 15px var(--marvel-red-glow);
+}
+
+/* ========================================
+   INTRUDER PEEKING ANIMATION
+   ======================================== */
+.marvel-anim-zone {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    height: 120px;
+    pointer-events: none;
+    z-index: 2;
+    overflow: visible;
+}
+
+.intruder-body {
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: 0 0 25px var(--marvel-red-glow);
+    border: 3px solid var(--marvel-red);
+    background: var(--bg-dark);
+}
+
+.intruder-zone.peek .intruder-body {
+    bottom: 10px;
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
+.intruder-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    transition: filter 0.5s ease;
+}
+
+/* Mood overlay on intruder face */
+.mood-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    transition: all 0.5s ease;
+    z-index: 2;
+}
+
+/* Mood states applied via JS */
+.intruder-body.mood-1 .intruder-img {
+    filter: grayscale(0.7) brightness(0.6);
+}
+
+.intruder-body.mood-1 .mood-overlay {
+    background: rgba(237, 29, 36, 0.2);
+}
+
+.intruder-body.mood-1 {
+    border-color: #888;
+    box-shadow: 0 0 15px rgba(100, 100, 100, 0.4);
+}
+
+.intruder-body.mood-2 .intruder-img {
+    filter: grayscale(0.4) brightness(0.75);
+}
+
+.intruder-body.mood-2 .mood-overlay {
+    background: rgba(255, 165, 0, 0.1);
+}
+
+.intruder-body.mood-2 {
+    border-color: #b0b0b0;
+    box-shadow: 0 0 15px rgba(150, 150, 150, 0.4);
+}
+
+.intruder-body.mood-3 .intruder-img {
+    filter: brightness(0.9);
+}
+
+.intruder-body.mood-3 {
+    border-color: #f0c040;
+    box-shadow: 0 0 15px rgba(240, 192, 64, 0.3);
+}
+
+.intruder-body.mood-4 .intruder-img {
+    filter: brightness(1.05) saturate(1.2);
+}
+
+.intruder-body.mood-4 {
+    border-color: #4caf50;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.4);
+}
+
+.intruder-body.mood-5 .intruder-img {
+    filter: brightness(1.15) saturate(1.4);
+}
+
+.intruder-body.mood-5 {
+    border-color: #ffd700;
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+    animation: happyPulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes happyPulse {
+    0% {
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+        transform: translateX(-50%) scale(1);
+    }
+
+    100% {
+        box-shadow: 0 0 35px rgba(255, 215, 0, 0.7);
+        transform: translateX(-50%) scale(1.05);
+    }
+}
+
+/* Speech Bubble */
+.speech-bubble {
+    position: absolute;
+    bottom: 70px;
+    right: 0;
+    background: var(--marvel-red);
+    color: #fff;
+    font-size: 1.2rem;
+    padding: 5px 10px;
+    border-radius: 10px;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    pointer-events: none;
+    box-shadow: 0 4px 15px rgba(237, 29, 36, 0.4);
+}
+
+.speech-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 16px;
+    width: 10px;
+    height: 10px;
+    background: var(--marvel-red);
+    transform: rotate(45deg);
+}
+
+.intruder-zone.peek .speech-bubble {
+    opacity: 1;
+    transform: scale(1);
+    transition-delay: 0.4s;
+}
+
+/* ========================================
+   SUBMIT BUTTON
+   ======================================== */
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid var(--marvel-red);
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.05rem;
+    letter-spacing: 2px;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 5;
+    margin-top: 16px;
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+}
+
+.btn-glow {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: var(--marvel-red);
+    z-index: 1;
+    transition: all 0.4s ease;
+}
+
+.submit-btn:hover .btn-glow {
+    left: 0;
+}
+
+.submit-btn:active {
+    transform: scale(0.96);
+}
+
+/* ========================================
+   SUCCESS MESSAGE
+   ======================================== */
+.hidden {
+    display: none !important;
+}
+
+#success-message {
+    text-align: center;
+    padding: 40px 0;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.success-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    animation: bounceIn 0.6s ease-out;
+}
+
+#success-message h2 {
+    color: var(--marvel-red);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px var(--marvel-red-glow);
+}
+
+#success-message p {
+    color: var(--text-muted);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0);
+    }
+
+    60% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+@media (max-width: 400px) {
+    .marvel-title {
+        font-size: 2rem;
+    }
+
+    .marvel-title span {
+        font-size: 1.1rem;
+        letter-spacing: 3px;
+    }
+
+    .form-wrapper {
+        padding: 15px 12px;
+    }
+
+    .section-header {
+        padding: 12px 14px;
+    }
+
+    .section-title {
+        font-size: 0.82rem;
+    }
+
+    .star {
+        font-size: 1.7rem;
+    }
+}

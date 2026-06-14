@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marvel Fitness Centre - Feedback</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-glow"></div>
+
+    <div class="container">
+        <header>
+            <h1 class="marvel-title">MARVEL<br><span>FITNESS CENTRE</span></h1>
+            <p data-i18n="subtitle">Your feedback makes us stronger. It's completely anonymous.</p>
+        </header>
+
+        <div class="lang-selector">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ml">മല</button>
+        </div>
+
+        <div class="form-wrapper">
+            <form id="feedback-form">
+
+                <div class="feedback-section active" data-section="0">
+                    <div class="section-header" data-target="0">
+                        <span class="section-icon">🏋️</span>
+                        <span class="section-title" data-i18n="sec_workout">How was your workout today?</span>
+                        <span class="section-chevron">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="rating-stars" data-rating="workout">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <div class="mood-label" data-rating-for="workout"></div>
+                        <div class="textarea-wrapper">
+                            <div class="intruder-zone marvel-anim-zone">
+                                <div class="intruder-body">
+                                    <img src="intruder_gripping.png" alt="Peeking" class="intruder-img">
+                                    <div class="mood-overlay"></div>
+                                </div>
+                                <div class="speech-bubble">
+                                    <span class="speech-text">🤔</span>
+                                </div>
+                            </div>
+                            <textarea class="feedback-textarea" rows="3" data-i18n-placeholder="ph_workout"
+                                placeholder="Any additional comments..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-section" data-section="1">
+                    <div class="section-header" data-target="1">
+                        <span class="section-icon">⚙️</span>
+                        <span class="section-title" data-i18n="sec_equipment">Equipment & Machines</span>
+                        <span class="section-chevron">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="rating-stars" data-rating="equipment">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <div class="mood-label" data-rating-for="equipment"></div>
+                        <div class="textarea-wrapper">
+                            <div class="intruder-zone marvel-anim-zone">
+                                <div class="intruder-body">
+                                    <img src="intruder_gripping.png" alt="Peeking" class="intruder-img">
+                                    <div class="mood-overlay"></div>
+                                </div>
+                                <div class="speech-bubble">
+                                    <span class="speech-text">🤔</span>
+                                </div>
+                            </div>
+                            <textarea class="feedback-textarea" rows="3" data-i18n-placeholder="ph_equipment"
+                                placeholder="Tell us about the equipment..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-section" data-section="2">
+                    <div class="section-header" data-target="2">
+                        <span class="section-icon">✨</span>
+                        <span class="section-title" data-i18n="sec_cleanliness">Cleanliness & Hygiene</span>
+                        <span class="section-chevron">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="rating-stars" data-rating="cleanliness">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <div class="mood-label" data-rating-for="cleanliness"></div>
+                        <div class="textarea-wrapper">
+                            <div class="intruder-zone marvel-anim-zone">
+                                <div class="intruder-body">
+                                    <img src="intruder_gripping.png" alt="Peeking" class="intruder-img">
+                                    <div class="mood-overlay"></div>
+                                </div>
+                                <div class="speech-bubble">
+                                    <span class="speech-text">🤔</span>
+                                </div>
+                            </div>
+                            <textarea class="feedback-textarea" rows="3" data-i18n-placeholder="ph_cleanliness"
+                                placeholder="How clean was the gym..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-section" data-section="3">
+                    <div class="section-header" data-target="3">
+                        <span class="section-icon">💪</span>
+                        <span class="section-title" data-i18n="sec_trainers">Trainers & Staff</span>
+                        <span class="section-chevron">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="rating-stars" data-rating="trainers">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <div class="mood-label" data-rating-for="trainers"></div>
+                        <div class="textarea-wrapper">
+                            <div class="intruder-zone marvel-anim-zone">
+                                <div class="intruder-body">
+                                    <img src="intruder_gripping.png" alt="Peeking" class="intruder-img">
+                                    <div class="mood-overlay"></div>
+                                </div>
+                                <div class="speech-bubble">
+                                    <span class="speech-text">🤔</span>
+                                </div>
+                            </div>
+                            <textarea class="feedback-textarea" rows="3" data-i18n-placeholder="ph_trainers"
+                                placeholder="How were the trainers..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="feedback-section" data-section="4">
+                    <div class="section-header" data-target="4">
+                        <span class="section-icon">🎵</span>
+                        <span class="section-title" data-i18n="sec_atmosphere">Music & Atmosphere</span>
+                        <span class="section-chevron">▼</span>
+                    </div>
+                    <div class="section-body">
+                        <div class="rating-stars" data-rating="atmosphere">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
+                        </div>
+                        <div class="mood-label" data-rating-for="atmosphere"></div>
+                        <div class="textarea-wrapper">
+                            <div class="intruder-zone marvel-anim-zone">
+                                <div class="intruder-body">
+                                    <img src="intruder_gripping.png" alt="Peeking" class="intruder-img">
+                                    <div class="mood-overlay"></div>
+                                </div>
+                                <div class="speech-bubble">
+                                    <span class="speech-text">🤔</span>
+                                </div>
+                            </div>
+                            <textarea class="feedback-textarea" rows="3" data-i18n-placeholder="ph_atmosphere"
+                                placeholder="How was the vibe..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span class="btn-text" data-i18n="submit">ASSEMBLE FEEDBACK</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </form>
+
+            <div id="success-message" class="hidden">
+                <div class="success-icon">🎉</div>
+                <h2 data-i18n="thanks_title">Thank You, Hero!</h2>
+                <p data-i18n="thanks_msg">Your feedback has been securely transmitted to HQ.</p>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
